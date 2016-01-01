@@ -18,14 +18,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class HistandVolChart {
     
 
-    public File chart( String ticker) throws Exception
+    public File chart( String ticker, int numberOfYears) throws Exception
     {
         BufferedReader reader= null;
         String splitBy = ",";
-        String line = "Price";
+        String line;
         double stockPrice;
-        File file = new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\TradingData\\ticker" +ticker+".data" );
-        
+        File file = new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\TradingData\\ticker\\" +ticker+".data" );
         reader = new BufferedReader(new FileReader(file));
         
         DefaultCategoryDataset stockDataSet = new DefaultCategoryDataset();
@@ -39,7 +38,7 @@ public class HistandVolChart {
         JFreeChart chartObject = ChartFactory.createLineChart( null, null, null,stockDataSet,PlotOrientation.VERTICAL, false, false, false);
         int width = 300;
         int height = 200;
-        File chart = new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\PDFBoxTest\\"+ticker +"2.jpg");
+        File chart = new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\PDFBoxTest\\"+ticker +".jpg");
         ChartUtilities.saveChartAsJPEG(chart, chartObject, width, height);
         return chart;
     }

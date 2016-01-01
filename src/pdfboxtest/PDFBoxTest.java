@@ -37,7 +37,7 @@ public class PDFBoxTest{
         
         GetFundamentals go = new GetFundamentals();
         // Create a document and add a page to it
-        go.ticker = "UAL";
+        go.ticker = "AAN";
         String outputFileName = go.ticker+".pdf";
         PDDocument document = new PDDocument();
         PDPage page1 = new PDPage(PDPage.PAGE_SIZE_LETTER);
@@ -60,7 +60,7 @@ public class PDFBoxTest{
 
         // Define a text content stream using the selected font, move the cursor and draw some text
         setupDefault(cos, fontPlain, document,go);
-        setupP1(cos, fontPlain, document);
+        setupP1(cos, fontPlain, document,go.ticker);
         cos.close();
          cos = new PDPageContentStream(document, page2);
          setupDefault(cos, fontPlain, document,go);
@@ -285,7 +285,7 @@ public class PDFBoxTest{
        return cos;
    }
     
-   public static PDPageContentStream setupP1 (PDPageContentStream cos, PDFont fontPlain, PDDocument document) throws Exception
+   public static PDPageContentStream setupP1 (PDPageContentStream cos, PDFont fontPlain, PDDocument document, String ticker) throws Exception
    {
        
         
@@ -308,8 +308,9 @@ public class PDFBoxTest{
         
         // One year price and volume chart
         try {
-          
-            BufferedImage awtImage = ImageIO.read(new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\PDFBoxTest\\XOM.jpg"));
+            int years = 1;
+            year1.chart(ticker, years);
+            BufferedImage awtImage = ImageIO.read(new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\PDFBoxTest\\"+ticker+".jpg"));
             PDXObjectImage ximage = new PDPixelMap(document, awtImage);
             float scale = 0.9f; // alter this value to set the image size
             cos.drawXObject(ximage, 15, 500, ximage.getWidth()*scale, ximage.getHeight()*scale);
@@ -318,8 +319,9 @@ public class PDFBoxTest{
         }
         // Three year price and volume chart
         try {
-          
-            BufferedImage awtImage = ImageIO.read(new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\PDFBoxTest\\XOM.jpg"));
+            int years = 3;
+           year1.chart(ticker, years);
+            BufferedImage awtImage = ImageIO.read(new File("C:\\Users\\Matthew\\Documents\\NetBeansProjects\\PDFBoxTest\\"+ticker+".jpg"));
             PDXObjectImage ximage = new PDPixelMap(document, awtImage);
             float scale = 0.9f; // alter this value to set the image size
             cos.drawXObject(ximage, 315, 500, ximage.getWidth()*scale, ximage.getHeight()*scale);
